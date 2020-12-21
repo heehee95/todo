@@ -8,7 +8,7 @@ const TodoList = ({todos, deleteTodo, toggleComplete}) => {
             <Todo 
                 deleteTodo={deleteTodo}
                 toggleComplete={toggleComplete}
-                key={index} 
+                key={index}
                 todo={todo} />
         )
     })

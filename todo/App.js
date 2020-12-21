@@ -13,7 +13,7 @@ import Input from './app/TextInput'
 import Button from './app/Button'
 import TodoList from './app/TodoList'
 
-let todoIndex =  0
+let todoIndex =  0 //왜 여기에 정의 했을까? state에 넣으면 되잖나?
 
 class App extends Component {
   constructor(){
@@ -45,17 +45,19 @@ class App extends Component {
     const todos = [...this.state.todos, todo]
     this.setState({todos,inputValue:''}, ()=>{console.log('State: ',this.state)})
   }
-  deleteTodo () {
-    let {todo} = this.state
+  deleteTodo (todoIndex) {
+    let {todos} = this.state
     todos = todos.filter((todo)=> todo.todoIndex !== todoIndex)
     this.setState({todos})
   }
   toggleComplete (todoIndex) {
-    let todos = this.state.todostodos.forEach(
+    let {todos} = this.state
+    todos = todos.map(
       (todo)=>{
         if (todo.todoIndex === todoIndex){
-          todo.complete = !todo.complete
+         todo.complete = !todo.complete
         }
+        return todo
       }
     )
     this.setState({todos})
