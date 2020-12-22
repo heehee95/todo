@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import {
   SafeAreaView,
@@ -8,10 +7,50 @@ import {
   Text,
   StatusBar,
 } from 'react-native';
+
+
+// class App extends Component {
+
+//   <View style={styleSet.rootContainer}>
+//     <View style={styleSet.displayContainer}>
+//     </View>
+//     <View style={styleSet.inputContainer}>
+//     </View>
+//   </View>
+
+// }
+
+
+// const styleSet = StyleSheet.create({
+//   rootContainer: {
+//     flex:1
+//   },
+//   displayContainer: {
+//     flex:2,
+//     backgroundColor: '#193441'
+//   },
+//   inputContainer:{
+//     flex:8,
+//     backgroundColor: '#3E606F'
+//   }
+// })
+
+
+
+
+
+
+
+
+
+
+
+
 import Heading from './app/Heading'
 import Input from './app/TextInput'
 import Button from './app/Button'
 import TodoList from './app/TodoList'
+import TabBar from './app/TabBar'
 
 let todoIndex =  0 //왜 여기에 정의 했을까? state에 넣으면 되잖나?
 
@@ -26,6 +65,7 @@ class App extends Component {
     this.submitTodo = this.submitTodo.bind(this)
     this.toggleComplete = this.toggleComplete.bind(this)
     this.deleteTodo = this.deleteTodo.bind(this)
+    this.setType = this.setType.bind(this)
   }
   inputChange(inputValue) {
     console.log('input value:', inputValue)
@@ -62,8 +102,11 @@ class App extends Component {
     )
     this.setState({todos})
   }
+  setType (type) {
+    this.setState({type})
+  }
   render() {
-    let {inputValue, todos} = this.state
+    const {inputValue, todos, type} = this.state
     return (
       <View style={styles.container}>
         <ScrollView keyboardShouldPersistTaps='always' style={styles.content}>
@@ -71,11 +114,13 @@ class App extends Component {
           <Input inputValue={inputValue}
           inputChange={(text)=> this.inputChange(text)} />
             <TodoList 
+              type={type}
               toggleComplete={this.toggleComplete}
               deleteTodo={this.deleteTodo}
               todos={todos} />
             <Button submitTodo={this.submitTodo} />
         </ScrollView>
+        <TabBar type={type} setType={this.setType}/>
       </View>
     )
   }
